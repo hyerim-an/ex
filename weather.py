@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from matplotlib.ticker import MaxNLocator
 import platform
+from matplotlib.font_manager import fontManager
 
 # 한글 폰트 설정 (OS 자동 감지)
 system = platform.system()
@@ -12,8 +13,11 @@ if system == "Windows":
     plt.rcParams['font.family'] = 'Malgun Gothic'
 elif system == "Darwin":  # macOS
     plt.rcParams['font.family'] = 'AppleGothic'
-else:  # Linux 등 기타 OS
-    plt.rcParams['font.family'] = 'DejaVu Sans'
+else:  # Linux 등 기타 OS (Streamlit Cloud)
+    # Streamlit Cloud 리눅스 서버의 나눔고딕 폰트 절대 경로 명시
+    nanum_font_path = '/usr/share/fonts/truetype/nanum/NanumGothic.ttf'
+    fontManager.addfont(nanum_font_path)
+    plt.rcParams['font.family'] = 'NanumGothic'
 
 # 마이너스 기호 깨짐 방지
 plt.rcParams['axes.unicode_minus'] = False
